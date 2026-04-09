@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Training – TTC Lauchringen</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .page-hero {
+      padding: 5rem 4rem 4rem;
+      background: var(--off-black);
+      border-bottom: 1px solid var(--border);
+    }
+    .training-grid {
+      display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.5rem; margin-top: 3rem;
+    }
+    .t-card {
+      background: var(--card); border: 1px solid var(--border); border-radius: 14px;
+      padding: 2.5rem; position: relative; overflow: hidden;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .t-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--red);
+    }
+    .t-card:hover { border-color: rgba(230,51,41,0.4); transform: translateY(-4px); }
+    .t-day { font-family:'Bebas Neue',sans-serif; font-size:3rem; color:var(--red); line-height:1; margin-bottom:1.2rem; }
+    .t-session {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1rem 0; border-bottom: 1px solid var(--border);
+    }
+    .t-session:last-of-type { border-bottom: none; }
+    .t-time { font-weight: 500; font-size: 1rem; }
+    .t-group { font-size: 0.83rem; color: var(--muted); margin-top: 0.15rem; }
+    .t-badge {
+      font-size: 0.7rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 0.28rem 0.75rem; border-radius: 100px;
+      background: rgba(230,51,41,0.13); color: var(--red); border: 1px solid rgba(230,51,41,0.22);
+      white-space: nowrap;
+    }
+    .t-badge.green { background:rgba(74,222,128,0.1); color:#4ade80; border-color:rgba(74,222,128,0.2); }
+
+    .location-section { padding: 5rem 4rem; background: var(--black); }
+    .loc-card {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;
+      background: var(--card); border: 1px solid var(--border); border-radius: 14px;
+      padding: 3rem; margin-top: 2.5rem; align-items: center;
+    }
+    .loc-map {
+      border-radius: 10px; height: 220px; overflow: hidden;
+      border: 1px solid var(--border);
+    }
+    .loc-map img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+    .loc-card:hover .loc-map img { transform: scale(1.04); }
+    .loc-info h3 { font-family:'Bebas Neue',sans-serif; font-size:2rem; margin-bottom:1rem; }
+    .loc-detail {
+      display: flex; align-items: flex-start; gap: 0.75rem; margin-bottom: 0.8rem;
+    }
+    .loc-detail-icon { font-size: 1.1rem; margin-top: 0.05rem; }
+    .loc-detail-text { font-size: 0.9rem; color: var(--muted); line-height: 1.5; }
+    .loc-detail-text strong { color: var(--text); }
+
+    .welcome-section { padding: 5rem 4rem; background: var(--off-black); }
+    .welcome-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; margin-top: 2.5rem; }
+    .welcome-card {
+      background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 2rem;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .welcome-card:hover { border-color: rgba(230,51,41,0.3); transform: translateY(-3px); }
+    .wc-icon { font-size: 1.8rem; margin-bottom: 0.8rem; }
+    .wc-title { font-weight: 500; font-size: 1rem; margin-bottom: 0.4rem; }
+    .wc-text { font-size: 0.85rem; color: var(--muted); line-height: 1.6; }
+
+    @media(max-width:900px){
+      .page-hero,.location-section,.welcome-section{padding:3.5rem 1.5rem;}
+      .training-grid{grid-template-columns:1fr;}
+      .loc-card{grid-template-columns:1fr;}
+      .welcome-grid{grid-template-columns:1fr;}
+    }
+  </style>
+</head>
+<body>
+<nav>
+  <a class="nav-logo" href="index.html">
+    <img src="logo.jpg" alt="TTC Lauchringen Logo" />
+    <div>
+      <div class="nav-logo-text"><span>TTC</span> Lauchringen</div>
+      <div class="nav-logo-sub">Seit 1995</div>
+    </div>
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="training.html">Training</a></li>
+    <li><a href="mannschaften.html">Mannschaften</a></li>
+    <li><a href="aktuelles.html">Aktuelles</a></li>
+    <li><a href="chronik.html">Chronik</a></li>
+    <li><a href="kontakt.html" class="nav-cta">Kontakt</a></li>
+  </ul>
+  <button class="burger" id="burger" aria-label="Menü"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="page">
+  <div class="page-hero">
+    <div class="section-eyebrow">Trainingsbetrieb</div>
+    <h1 class="section-title">TRAINING &amp; <span class="outline">ZEITEN</span></h1>
+    <p style="margin-top:1rem;color:var(--muted);max-width:520px;">Wir trainieren dreimal pro Woche – an zwei Standorten, für Anfänger wie Fortgeschrittene. Komm einfach vorbei!</p>
+
+    <div class="training-grid">
+      <div class="t-card fade-in">
+        <div class="t-day">Montag</div>
+        <div class="t-session">
+          <div><div class="t-time">17:30 – 19:00 Uhr</div><div class="t-group">Jugendtraining</div></div>
+          <span class="t-badge">Jugend</span>
+        </div>
+        <div class="t-session">
+          <div><div class="t-time">ab 19:00 Uhr</div><div class="t-group">Erwachsene – Freizeit & Mannschaft</div></div>
+          <span class="t-badge green">Alle</span>
+        </div>
+        <p style="margin-top:1.2rem;font-size:0.82rem;color:var(--muted);">📍 Sporthalle Unterlauchringen</p>
+      </div>
+
+      <div class="t-card fade-in">
+        <div class="t-day">Mittwoch</div>
+        <div class="t-session">
+          <div><div class="t-time">17:00 – 19:00 Uhr</div><div class="t-group">Training für alle</div></div>
+          <span class="t-badge green">Alle</span>
+        </div>
+        <p style="margin-top:1.2rem;font-size:0.82rem;color:var(--muted);">📍 Gemeindehalle Gurtweil</p>
+      </div>
+
+      <div class="t-card fade-in">
+        <div class="t-day">Freitag</div>
+        <div class="t-session">
+          <div><div class="t-time">19:00 – 21:00 Uhr</div><div class="t-group">Training für alle</div></div>
+          <span class="t-badge green">Alle</span>
+        </div>
+        <p style="margin-top:1.2rem;font-size:0.82rem;color:var(--muted);">📍 Sporthalle Unterlauchringen</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="location-section">
+    <div class="section-eyebrow">Wo wir trainieren</div>
+    <h2 class="section-title">UNSERE <span class="outline">STANDORTE</span></h2>
+
+    <div class="loc-card fade-in">
+      <div class="loc-map">
+        <img src="halle-lauchringen.jpg" alt="Sporthalle Unterlauchringen" />
+      </div>
+      <div class="loc-info">
+        <h3>Sporthalle Unterlauchringen</h3>
+        <p style="font-size:0.8rem;color:var(--red);margin-bottom:1rem;font-weight:500;">Montag & Freitag</p>
+        <div class="loc-detail">
+          <div class="loc-detail-icon">🏠</div>
+          <div class="loc-detail-text"><strong>Adresse</strong><br>Hohrainstraße 57<br>79787 Lauchringen</div>
+        </div>
+        <div class="loc-detail">
+          <div class="loc-detail-icon">🚪</div>
+          <div class="loc-detail-text"><strong>Eingang</strong><br>Hallenteil C – bitte klingeln</div>
+        </div>
+        <a href="https://maps.google.com/?q=Hohrainstraße+57+Lauchringen" target="_blank" rel="noopener" class="btn-primary" style="margin-top:1.2rem;display:inline-block;">In Google Maps öffnen →</a>
+      </div>
+    </div>
+
+    <div class="loc-card fade-in" style="margin-top:1.5rem;">
+      <div class="loc-map">
+        <img src="halle-gurtweil.jpg" alt="Gemeindehalle Gurtweil" />
+      </div>
+      <div class="loc-info">
+        <h3>Gemeindehalle Gurtweil</h3>
+        <p style="font-size:0.8rem;color:var(--red);margin-bottom:1rem;font-weight:500;">Mittwoch</p>
+        <div class="loc-detail">
+          <div class="loc-detail-icon">🏠</div>
+          <div class="loc-detail-text"><strong>Adresse</strong><br>Leo-Beringer-Straße 1<br>79761 Waldshut-Tiengen</div>
+        </div>
+        <div class="loc-detail">
+          <div class="loc-detail-icon">🚗</div>
+          <div class="loc-detail-text"><strong>Parken</strong><br>Parkplätze direkt an der Halle vorhanden</div>
+        </div>
+        <a href="https://maps.google.com/?q=Leo-Beringer-Straße+1+Waldshut-Tiengen" target="_blank" rel="noopener" class="btn-primary" style="margin-top:1.2rem;display:inline-block;">In Google Maps öffnen →</a>
+      </div>
+    </div>
+
+    <div class="loc-card fade-in" style="margin-top:1.5rem;">
+      <div class="loc-map">
+        <img src="halle-gemeinde-lauchringen.jpg" alt="Gemeindehalle Unterlauchringen" />
+      </div>
+      <div class="loc-info">
+        <h3>Gemeindehalle Unterlauchringen</h3>
+        <p style="font-size:0.8rem;color:var(--red);margin-bottom:1rem;font-weight:500;">Heimspieltage</p>
+        <div class="loc-detail">
+          <div class="loc-detail-icon">🏠</div>
+          <div class="loc-detail-text"><strong>Adresse</strong><br>Jahnstraße 3<br>79787 Lauchringen</div>
+        </div>
+        <div class="loc-detail">
+          <div class="loc-detail-icon">🏆</div>
+          <div class="loc-detail-text"><strong>Nutzung</strong><br>Heimspiele im Punktspielbetrieb</div>
+        </div>
+        <a href="https://maps.google.com/?q=Jahnstraße+3+Lauchringen" target="_blank" rel="noopener" class="btn-primary" style="margin-top:1.2rem;display:inline-block;">In Google Maps öffnen →</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="welcome-section">
+    <div class="section-eyebrow">Für alle offen</div>
+    <h2 class="section-title">JEDER IST <span class="outline">WILLKOMMEN</span></h2>
+    <div class="welcome-grid">
+      <div class="welcome-card fade-in">
+        <div class="wc-icon">🆕</div>
+        <div class="wc-title">Einsteiger</div>
+        <div class="wc-text">Noch nie Tischtennis gespielt? Kein Problem! Wir helfen dir beim Einstieg und du kannst einfach mal reinschnuppern.</div>
+      </div>
+      <div class="welcome-card fade-in">
+        <div class="wc-icon">🎮</div>
+        <div class="wc-title">Freizeitspieler</div>
+        <div class="wc-text">Du willst einfach Spaß haben ohne Leistungsdruck? Bei uns spielen viele reine Freizeitspieler – du bist dabei!</div>
+      </div>
+      <div class="welcome-card fade-in">
+        <div class="wc-icon">🏅</div>
+        <div class="wc-title">Wettkampfspieler</div>
+        <div class="wc-text">Du willst in einer Mannschaft spielen? Wir haben 3 Herrenmannschaften im Punktspielbetrieb.</div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <a class="footer-logo" href="index.html"><img src="logo.jpg" alt="Logo"/><div class="footer-logo-text"><span>TTC</span> Lauchringen</div></a>
+    <p class="footer-copy">© 2026 TTC Lauchringen · Tischtennis seit 1995</p>
+    <div class="footer-links">
+      <a href="training.html">Training</a>
+      <a href="mannschaften.html">Mannschaften</a>
+      <a href="kontakt.html">Kontakt</a>
+      <a href="chronik.html">Chronik</a>
+      <a href="impressum.html">Impressum</a>
+    </div>
+  </footer>
+</div>
+<script src="main.js"></script>
+</body>
+</html>

@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mannschaften – TTC Lauchringen</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .page-hero { padding: 5rem 4rem 4rem; background: var(--off-black); border-bottom: 1px solid var(--border); }
+    .hero-inner {
+      display: grid; grid-template-columns: 1fr 380px;
+      gap: 3rem; align-items: center; margin-bottom: 2.5rem;
+    }
+    .hero-img-wrap {
+      border-radius: 12px; overflow: hidden;
+      border: 1px solid var(--border);
+      box-shadow: 0 12px 36px rgba(0,0,0,0.4);
+      position: relative;
+    }
+    .hero-img-wrap img {
+      width: 100%; height: 240px;
+      object-fit: cover; object-position: center 25%;
+      display: block;
+    }
+    .hero-img-caption {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.65), transparent);
+      color: rgba(255,255,255,0.8); font-size: 0.78rem;
+      padding: 1.2rem 1rem 0.6rem; letter-spacing: 0.06em;
+    }
+    @media(max-width:900px){
+      .hero-inner { grid-template-columns: 1fr; }
+      .hero-img-wrap img { height: 200px; }
+    }
+    .spielplan-banner {
+      margin: 3rem 0 0;
+      background: var(--card);
+      border: 1px solid rgba(230,51,41,0.3);
+      border-radius: 14px;
+      padding: 2rem 2.5rem;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 2rem;
+      position: relative; overflow: hidden;
+    }
+    .spielplan-banner::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: var(--red);
+    }
+    .spielplan-banner-left { flex: 1; }
+    .spielplan-banner-icon {
+      font-size: 2.2rem; margin-bottom: 0.5rem;
+    }
+    .spielplan-banner-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.8rem; letter-spacing: 0.04em; line-height: 1;
+      margin-bottom: 0.4rem;
+    }
+    .spielplan-banner-text {
+      font-size: 0.88rem; color: var(--muted); line-height: 1.6; max-width: 500px;
+    }
+    .spielplan-banner-btn {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      background: var(--red); color: #fff; text-decoration: none;
+      padding: 0.9rem 1.8rem; border-radius: 8px;
+      font-weight: 500; font-size: 0.92rem;
+      transition: background 0.2s, transform 0.15s;
+      white-space: nowrap; flex-shrink: 0;
+    }
+    .spielplan-banner-btn:hover { background: var(--red-dark); transform: translateY(-2px); }
+
+    @media(max-width:700px){
+      .spielplan-banner { flex-direction: column; align-items: flex-start; }
+    }
+    .teams-section { padding: 5rem 4rem; background: var(--black); }
+    .team-block {
+      background: var(--card); border: 1px solid var(--border); border-radius: 14px;
+      overflow: hidden; margin-bottom: 1.5rem;
+      transition: border-color 0.2s;
+    }
+    .team-block:hover { border-color: rgba(230,51,41,0.35); }
+    .team-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 2rem 2.5rem; border-bottom: 1px solid var(--border);
+      background: linear-gradient(135deg, rgba(230,51,41,0.05), transparent);
+    }
+    .team-header-left { display: flex; align-items: center; gap: 1.5rem; }
+    .team-num {
+      font-family: 'Bebas Neue', sans-serif; font-size: 3.5rem;
+      color: rgba(255,255,255,0.06); line-height: 1; min-width: 60px;
+    }
+    .team-name-wrap {}
+    .team-name { font-family:'Bebas Neue',sans-serif; font-size:1.8rem; letter-spacing:0.04em; line-height:1; }
+    .team-liga { font-size: 0.83rem; color: var(--muted); margin-top: 0.2rem; }
+    .team-badge {
+      font-size: 0.72rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 0.3rem 0.9rem; border-radius: 100px;
+      background: rgba(230,51,41,0.13); color: var(--red); border: 1px solid rgba(230,51,41,0.22);
+    }
+    .team-body { padding: 2rem 2.5rem; display: flex; gap: 2rem; align-items: center; flex-wrap: wrap; }
+    .team-desc { font-size: 0.9rem; color: var(--muted); line-height: 1.6; flex: 1; min-width: 200px; }
+    .team-link {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: var(--red); color: #fff; text-decoration: none;
+      padding: 0.7rem 1.4rem; border-radius: 6px; font-weight: 500; font-size: 0.88rem;
+      transition: background 0.2s, transform 0.15s; white-space: nowrap;
+    }
+    .team-link:hover { background: var(--red-dark); transform: translateY(-2px); }
+
+    .season-section { padding: 5rem 4rem; background: var(--off-black); }
+    .season-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; margin-top: 2.5rem; }
+    .season-card {
+      background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 2rem;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .season-card:hover { border-color: rgba(230,51,41,0.3); transform: translateY(-3px); }
+    .sc-label { font-size: 0.72rem; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.4rem; }
+    .sc-val { font-family:'Bebas Neue',sans-serif; font-size:2.5rem; color:var(--red); line-height:1; }
+    .sc-desc { font-size: 0.83rem; color: var(--muted); margin-top: 0.3rem; }
+
+    @media(max-width:900px){
+      .page-hero,.teams-section,.season-section{padding:3.5rem 1.5rem;}
+      .team-header{flex-direction:column;align-items:flex-start;gap:1rem;}
+      .season-grid{grid-template-columns:1fr 1fr;}
+    }
+  </style>
+</head>
+<body>
+<nav>
+  <a class="nav-logo" href="index.html">
+    <img src="logo.jpg" alt="TTC Lauchringen Logo" />
+    <div>
+      <div class="nav-logo-text"><span>TTC</span> Lauchringen</div>
+      <div class="nav-logo-sub">Seit 1995</div>
+    </div>
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="training.html">Training</a></li>
+    <li><a href="mannschaften.html">Mannschaften</a></li>
+    <li><a href="aktuelles.html">Aktuelles</a></li>
+    <li><a href="chronik.html">Chronik</a></li>
+    <li><a href="kontakt.html" class="nav-cta">Kontakt</a></li>
+  </ul>
+  <button class="burger" id="burger" aria-label="Menü"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="page">
+  <div class="page-hero">
+    <div class="hero-inner">
+      <div class="hero-text">
+        <div class="section-eyebrow">Spielbetrieb</div>
+        <h1 class="section-title">UNSERE <span class="outline">MANNSCHAFTEN</span></h1>
+        <p style="margin-top:1rem;color:var(--muted);max-width:480px;">Der TTC Lauchringen nimmt in der Saison 2025/26 mit drei Herrenmannschaften am Punktspielbetrieb des Tischtennisverbandes Baden-Württemberg teil.</p>
+      </div>
+      <div class="hero-img-wrap fade-in">
+        <img src="Vereinsfoto.jpeg" alt="TTC Lauchringen – Der Verein" />
+        <p class="hero-img-caption">TTC Lauchringen – Saison 2025/26</p>
+      </div>
+    </div>
+
+    <div class="spielplan-banner fade-in">
+      <div class="spielplan-banner-left">
+        <div class="spielplan-banner-icon">📋</div>
+        <div class="spielplan-banner-title">Gesamter Vereinsspielplan</div>
+        <div class="spielplan-banner-text">Alle Mannschaften, Spielpläne, Ergebnisse und Tabellen des TTC Lauchringen auf einen Blick – direkt bei myTischtennis.</div>
+      </div>
+      <a class="spielplan-banner-btn" href="https://www.mytischtennis.de/click-tt/TTBW/25--26/verein/23016/TTC_Lauchringen/mannschaften" target="_blank" rel="noopener">
+        Zum Vereinsspielplan →
+      </a>
+    </div>
+  </div>
+
+  <div class="teams-section">
+    <div class="team-block fade-in">
+      <div class="team-header">
+        <div class="team-header-left">
+          <div class="team-num">01</div>
+          <div class="team-name-wrap">
+            <div class="team-name">1. Herrenmannschaft</div>
+            <div class="team-liga">Kreisliga A · Saison 2025/26</div>
+          </div>
+        </div>
+        <span class="team-badge">Herren</span>
+      </div>
+      <div class="team-body">
+        <p class="team-desc">Unsere erste Herrenmannschaft spielt in der Kreisklasse A. Aktuelle Tabelle, Spielpläne und Ergebnisse direkt bei mytischtennis.de.</p>
+        <a class="team-link" href="https://www.mytischtennis.de/click-tt/TTBW/25--26/ligen/Kreisliga_A/gruppe/494407/mannschaft/2959803/Erwachsene/spielerbilanzen/gesamt" target="_blank" rel="noopener">Tabelle & Spielplan →</a>
+      </div>
+    </div>
+
+    <div class="team-block fade-in">
+      <div class="team-header">
+        <div class="team-header-left">
+          <div class="team-num">02</div>
+          <div class="team-name-wrap">
+            <div class="team-name">2. Herrenmannschaft</div>
+            <div class="team-liga">Kreisliga C · Saison 2025/26</div>
+          </div>
+        </div>
+        <span class="team-badge">Herren</span>
+      </div>
+      <div class="team-body">
+        <p class="team-desc">Die zweite Herrenmannschaft spielt in der Kreisklasse C und bietet auch Spielern mit weniger Wettkampferfahrung eine Heimat.</p>
+        <a class="team-link" href="https://www.mytischtennis.de/click-tt/TTBW/25--26/ligen/Kreisliga_C/gruppe/501680/mannschaft/2961071/Erwachsene_II/spielerbilanzen/gesamt" target="_blank" rel="noopener">Tabelle & Spielplan →</a>
+      </div>
+    </div>
+
+    <div class="team-block fade-in">
+      <div class="team-header">
+        <div class="team-header-left">
+          <div class="team-num">03</div>
+          <div class="team-name-wrap">
+            <div class="team-name">3. Herrenmannschaft</div>
+            <div class="team-liga">Kreisklasse Gruppe 1 · Saison 2025/26</div>
+          </div>
+        </div>
+        <span class="team-badge">Herren</span>
+      </div>
+      <div class="team-body">
+        <p class="team-desc">Die dritte Herrenmannschaft bietet auch Spielern mit weniger Wettkampferfahrung einen Einstieg in den Mannschaftsspielbetrieb.</p>
+        <a class="team-link" href="https://www.mytischtennis.de/click-tt/TTBW/25--26/ligen/Kreisklasse_Gruppe_1/gruppe/501681/mannschaft/2994007/TTC_Lauchringen_III/spielerbilanzen/gesamt" target="_blank" rel="noopener">Tabelle & Spielplan →</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="season-section">
+    <div class="section-eyebrow">Saison 2025/26</div>
+    <h2 class="section-title">ZAHLEN &amp; <span class="outline">FAKTEN</span></h2>
+    <div class="season-grid">
+      <div class="season-card fade-in"><div class="sc-label">Mannschaften</div><div class="sc-val">3</div><div class="sc-desc">Herren 1, Herren 2, Herren 3</div></div>
+      <div class="season-card fade-in"><div class="sc-label">Ligastart</div><div class="sc-val">Sep</div><div class="sc-desc">Saison beginnt im September</div></div>
+      <div class="season-card fade-in"><div class="sc-label">Verband</div><div class="sc-val">TTBW</div><div class="sc-desc">Tischtennisverband Baden-Württemberg</div></div>
+    </div>
+  </div>
+
+  <footer>
+    <a class="footer-logo" href="index.html"><img src="logo.jpg" alt="Logo"/><div class="footer-logo-text"><span>TTC</span> Lauchringen</div></a>
+    <p class="footer-copy">© 2026 TTC Lauchringen · Tischtennis seit 1995</p>
+    <div class="footer-links">
+      <a href="training.html">Training</a>
+      <a href="mannschaften.html">Mannschaften</a>
+      <a href="kontakt.html">Kontakt</a>
+      <a href="chronik.html">Chronik</a>
+      <a href="impressum.html">Impressum</a>
+    </div>
+  </footer>
+</div>
+<script src="main.js"></script>
+</body>
+</html>

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aktuelles – TTC Lauchringen</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .page-hero { padding: 5rem 4rem 4rem; background: var(--off-black); border-bottom: 1px solid var(--border); }
+    .news-section { padding: 5rem 4rem; background: var(--black); }
+    .news-grid {
+      display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; margin-top: 3rem;
+    }
+    .news-card {
+      background: var(--card); border: 1px solid var(--border); border-radius: 14px;
+      overflow: hidden; transition: border-color 0.2s, transform 0.2s;
+    }
+    .news-card:hover { border-color: rgba(230,51,41,0.35); transform: translateY(-4px); }
+    .news-card.featured { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr; }
+    .news-img {
+      width: 100%; aspect-ratio: 16/9; background: linear-gradient(135deg,#1e1e1e,#272727);
+      display: flex; align-items: center; justify-content: center; font-size: 2.5rem;
+    }
+    .news-card.featured .news-img { aspect-ratio: auto; min-height: 200px; }
+    .news-body { padding: 1.8rem; display: flex; flex-direction: column; justify-content: center; }
+    .news-date { font-size: 0.72rem; color: var(--muted); letter-spacing: 0.08em; margin-bottom: 0.5rem; }
+    .news-tag {
+      display: inline-block; font-size: 0.68rem; font-weight: 500; letter-spacing: 0.1em;
+      text-transform: uppercase; padding: 0.2rem 0.65rem; border-radius: 100px;
+      background: rgba(230,51,41,0.12); color: var(--red); border: 1px solid rgba(230,51,41,0.2);
+      margin-bottom: 0.6rem; width: fit-content;
+    }
+    .news-title { font-weight: 500; font-size: 1rem; line-height: 1.45; margin-bottom: 0.5rem; }
+    .news-card.featured .news-title { font-size: 1.3rem; }
+    .news-excerpt { font-size: 0.85rem; color: var(--muted); line-height: 1.6; }
+
+    .instagram-section { padding: 5rem 4rem; background: var(--off-black); }
+    .insta-placeholder {
+      margin-top: 2.5rem; background: var(--card); border: 1px dashed rgba(230,51,41,0.3);
+      border-radius: 14px; padding: 4rem 2rem; text-align: center;
+    }
+    .insta-placeholder .icon { font-size: 3rem; margin-bottom: 1rem; }
+    .insta-placeholder h3 { font-family:'Bebas Neue',sans-serif; font-size:1.8rem; margin-bottom:0.5rem; }
+    .insta-placeholder p { font-size:0.88rem; color:var(--muted); max-width:400px; margin:0 auto 1.5rem; }
+
+    @media(max-width:900px){
+      .page-hero,.news-section,.instagram-section{padding:3.5rem 1.5rem;}
+      .news-grid{grid-template-columns:1fr;}
+      .news-card.featured{grid-column:auto;display:block;}
+      .news-card.featured .news-img{aspect-ratio:16/9;}
+    }
+  </style>
+</head>
+<body>
+<nav>
+  <a class="nav-logo" href="index.html">
+    <img src="logo.jpg" alt="TTC Lauchringen Logo" />
+    <div>
+      <div class="nav-logo-text"><span>TTC</span> Lauchringen</div>
+      <div class="nav-logo-sub">Seit 1995</div>
+    </div>
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="training.html">Training</a></li>
+    <li><a href="mannschaften.html">Mannschaften</a></li>
+    <li><a href="aktuelles.html">Aktuelles</a></li>
+    <li><a href="chronik.html">Chronik</a></li>
+    <li><a href="kontakt.html" class="nav-cta">Kontakt</a></li>
+  </ul>
+  <button class="burger" id="burger" aria-label="Menü"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="page">
+  <div class="page-hero">
+    <div class="section-eyebrow">News & Updates</div>
+    <h1 class="section-title">AKTUELLES <span class="outline">AUS DEM VEREIN</span></h1>
+    <p style="margin-top:1rem;color:var(--muted);max-width:520px;">Berichte, Ergebnisse und Neuigkeiten rund um den TTC Lauchringen.</p>
+  </div>
+
+  <div class="news-section">
+    <div class="section-eyebrow">Neueste Beiträge</div>
+    <h2 class="section-title">BERICHTE</h2>
+    <div class="news-grid">
+
+      <a href="weihnachtsfeier-2024.html" class="news-card featured fade-in" style="text-decoration:none;color:var(--text);">
+        <div class="news-img" style="background:none;padding:0;overflow:hidden;">
+          <img src="Foto-3-scaled.jpg" alt="Weihnachtsfeier 2024" style="width:100%;height:100%;object-fit:cover;"/>
+        </div>
+        <div class="news-body">
+          <span class="news-tag">Vereinsleben</span>
+          <div class="news-date">26. Dezember 2024</div>
+          <div class="news-title">Weihnachtsfeier 2024 mit vorherigem Doppelturnier</div>
+          <div class="news-excerpt">19 Spieler beim Doppelturnier, 28 Personen bei der Feier – ein gelungener Abend mit Siegerehrung und reichlich Essen vom Pinocchio.</div>
+          <div style="margin-top:1rem;font-size:0.82rem;color:var(--red);font-weight:500;">Ganzen Bericht lesen →</div>
+        </div>
+      </a>
+
+      <div class="news-card fade-in">
+        <div class="news-img">🏓</div>
+        <div class="news-body">
+          <span class="news-tag">Training</span>
+          <div class="news-date">24. März 2024</div>
+          <div class="news-title">Jugendtraining freitags</div>
+          <div class="news-excerpt">Wenn freitags alle Spieler da sind, macht das Training richtig Spaß. Auch Erwachsene als Sparringspartner herzlich willkommen!</div>
+        </div>
+      </div>
+
+      <div class="news-card fade-in">
+        <div class="news-img">🍕</div>
+        <div class="news-body">
+          <span class="news-tag">Vereinsleben</span>
+          <div class="news-date">25. Juli 2023</div>
+          <div class="news-title">Trainings-Abschluss-Hock 2023</div>
+          <div class="news-excerpt">Am letzten Trainingstag vor den Sommerferien lud der Vorstand zum Abschlusshock mit Getränken und Pizza. Prädikat: Wiederholenswert!</div>
+        </div>
+      </div>
+
+      <div class="news-card fade-in">
+        <div class="news-img">👥</div>
+        <div class="news-body">
+          <span class="news-tag">Spielbetrieb</span>
+          <div class="news-date">21. Juli 2023</div>
+          <div class="news-title">Mannschaften der Saison 2023/2024</div>
+          <div class="news-excerpt">Wir starten mit einer Herrenmannschaft und zwei Jugendmannschaften in die neue Saison.</div>
+        </div>
+      </div>
+
+      <div class="news-card fade-in">
+        <div class="news-img">🏆</div>
+        <div class="news-body">
+          <span class="news-tag">Ergebnisse</span>
+          <div class="news-date">6. August 2020</div>
+          <div class="news-title">Endergebnisse Saison 2019/2020</div>
+          <div class="news-excerpt">Neun Mannschaften – neuer Vereinsrekord! Trotz Corona-Saisonabbruch ein insgesamt positives Fazit.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="instagram-section">
+    <div class="section-eyebrow">Social Media</div>
+    <h2 class="section-title">INSTAGRAM <span class="outline">FEED</span></h2>
+    <div class="insta-placeholder">
+      <div class="icon">📸</div>
+      <h3>Instagram Feed</h3>
+      <p>Hier wird bald automatisch euer Instagram-Feed eingebettet. Neuer Post auf Instagram = automatisch hier sichtbar.</p>
+      <!-- ELFSIGHT INSTAGRAM WIDGET: Code hier einfügen -->
+      <!-- <script src="https://static.elfsight.com/platform/platform.js" async></script>
+           <div class="elfsight-app-DEINE-APP-ID"></div> -->
+      <p style="font-size:0.78rem;color:var(--muted);">→ Elfsight.com Account erstellen · Instagram verbinden · Code hier einfügen</p>
+    </div>
+  </div>
+
+  <footer>
+    <a class="footer-logo" href="index.html"><img src="logo.jpg" alt="Logo"/><div class="footer-logo-text"><span>TTC</span> Lauchringen</div></a>
+    <p class="footer-copy">© 2026 TTC Lauchringen · Tischtennis seit 1995</p>
+    <div class="footer-links">
+      <a href="training.html">Training</a>
+      <a href="mannschaften.html">Mannschaften</a>
+      <a href="kontakt.html">Kontakt</a>
+      <a href="chronik.html">Chronik</a>
+      <a href="impressum.html">Impressum</a>
+    </div>
+  </footer>
+</div>
+<script src="main.js"></script>
+</body>
+</html>

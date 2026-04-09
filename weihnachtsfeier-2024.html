@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Weihnachtsfeier 2024 – TTC Lauchringen</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .article-hero {
+      padding: 5rem 4rem 3rem;
+      background: var(--off-black);
+      border-bottom: 1px solid var(--border);
+    }
+    .article-hero-inner {
+      display: grid; grid-template-columns: 1fr 420px; gap: 3rem;
+      align-items: center;
+    }
+    .article-hero-img {
+      border-radius: 14px; overflow: hidden;
+      height: 300px; flex-shrink: 0;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    }
+    .article-hero-img img { width: 100%; height: 100%; object-fit: cover; }
+    .article-meta {
+      display: flex; align-items: center; gap: 1rem; margin-bottom: 1.2rem; flex-wrap: wrap;
+    }
+    .article-tag {
+      font-size: 0.7rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 0.25rem 0.75rem; border-radius: 100px;
+      background: rgba(230,51,41,0.12); color: var(--red); border: 1px solid rgba(230,51,41,0.2);
+    }
+    .article-date { font-size: 0.82rem; color: var(--muted); }
+    .article-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      line-height: 1; letter-spacing: 0.02em; margin-bottom: 1rem;
+    }
+    .article-intro { font-size: 1.05rem; color: var(--muted); line-height: 1.7; max-width: 700px; }
+
+    .article-body {
+      padding: 4rem 4rem;
+      background: var(--black);
+    }
+    .article-text {
+      font-size: 0.95rem; line-height: 1.85; color: rgba(240,236,228,0.85);
+      margin-bottom: 2rem;
+      columns: 2; column-gap: 3rem;
+    }
+    .article-text p { margin-bottom: 1.2rem; break-inside: avoid; }
+
+    /* Ergebnistabelle */
+    .results-block {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 14px; overflow: hidden; margin: 2.5rem 0;
+    }
+    .results-header {
+      background: var(--red); padding: 1rem 1.5rem;
+      font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 0.06em;
+    }
+    .results-row {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0.75rem 1.5rem; border-bottom: 1px solid var(--border);
+      transition: background 0.15s;
+    }
+    .results-row:last-child { border-bottom: none; }
+    .results-row:hover { background: rgba(255,255,255,0.03); }
+    .results-row.top { background: rgba(230,51,41,0.08); }
+    .results-rank {
+      font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem;
+      color: var(--red); min-width: 36px;
+    }
+    .results-rank.gold { color: #f5c842; }
+    .results-rank.silver { color: #aaa; }
+    .results-names { font-weight: 500; font-size: 0.92rem; flex: 1; padding: 0 1rem; }
+    .results-wins {
+      font-size: 0.82rem; color: var(--muted);
+      background: var(--off-black); border: 1px solid var(--border);
+      padding: 0.2rem 0.65rem; border-radius: 100px; white-space: nowrap;
+    }
+    .results-wins.highlight {
+      background: rgba(230,51,41,0.12); color: var(--red); border-color: rgba(230,51,41,0.2);
+    }
+
+    /* Foto-Galerie */
+    .gallery-section { margin: 3rem 0; }
+    .gallery-label {
+      font-size: 0.72rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.6rem;
+    }
+    .gallery-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+    .gallery-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.6rem;
+    }
+    .gallery-grid.two-col { grid-template-columns: repeat(2, 1fr); }
+    .gallery-item {
+      border-radius: 8px; overflow: hidden; aspect-ratio: 4/3;
+      cursor: pointer; position: relative;
+    }
+    .gallery-item.tall { aspect-ratio: 3/4; }
+    .gallery-item img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+    .gallery-item:hover img { transform: scale(1.05); }
+
+    /* Lightbox */
+    .lightbox {
+      display: none; position: fixed; inset: 0; z-index: 999;
+      background: rgba(0,0,0,0.92); align-items: center; justify-content: center;
+    }
+    .lightbox.open { display: flex; }
+    .lightbox img { max-width: 90vw; max-height: 90vh; object-fit: contain; border-radius: 6px; }
+    .lightbox-close {
+      position: absolute; top: 1.5rem; right: 1.5rem;
+      background: rgba(255,255,255,0.1); border: none; color: var(--text);
+      width: 40px; height: 40px; border-radius: 50%; font-size: 1.2rem;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s;
+    }
+    .lightbox-close:hover { background: rgba(255,255,255,0.2); }
+    .lightbox-prev, .lightbox-next {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      background: rgba(255,255,255,0.1); border: none; color: var(--text);
+      width: 48px; height: 48px; border-radius: 50%; font-size: 1.4rem;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s;
+    }
+    .lightbox-prev:hover, .lightbox-next:hover { background: rgba(255,255,255,0.2); }
+    .lightbox-prev { left: 1.5rem; }
+    .lightbox-next { right: 1.5rem; }
+
+    .back-link {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      color: var(--muted); text-decoration: none; font-size: 0.85rem;
+      padding: 4rem 4rem 0; display: block;
+      transition: color 0.2s;
+    }
+    .back-link:hover { color: var(--text); }
+
+    @media(max-width:900px){
+      .article-hero,.article-body{padding:3rem 1.5rem;}
+      .article-hero-inner{grid-template-columns:1fr;}
+      .article-hero-img{height:220px;}
+      .back-link{padding:2.5rem 1.5rem 0;}
+      .article-text{columns:1;}
+      .gallery-grid{grid-template-columns:repeat(2,1fr);}
+      .lightbox-prev{left:0.5rem;}
+      .lightbox-next{right:0.5rem;}
+    }
+  </style>
+</head>
+<body>
+<nav>
+  <a class="nav-logo" href="index.html">
+    <img src="logo.jpg" alt="TTC Lauchringen Logo" />
+    <div>
+      <div class="nav-logo-text"><span>TTC</span> Lauchringen</div>
+      <div class="nav-logo-sub">Seit 1995</div>
+    </div>
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="training.html">Training</a></li>
+    <li><a href="mannschaften.html">Mannschaften</a></li>
+    <li><a href="aktuelles.html">Aktuelles</a></li>
+    <li><a href="chronik.html">Chronik</a></li>
+    <li><a href="kontakt.html" class="nav-cta">Kontakt</a></li>
+  </ul>
+  <button class="burger" id="burger" aria-label="Menü"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="page">
+  <a class="back-link" href="aktuelles.html">← Zurück zu Aktuelles</a>
+
+  <div class="article-hero">
+    <div class="article-hero-inner">
+      <div class="article-hero-text">
+        <div class="article-meta">
+          <span class="article-tag">Vereinsleben</span>
+          <span class="article-date">26. Dezember 2024</span>
+        </div>
+        <h1 class="article-title">Weihnachtsfeier 2024 mit vorherigem Doppelturnier</h1>
+        <p class="article-intro">Ein gelungener Abend in der Sporthalle und Cafeteria – mit Doppelturnier, Siegerehrung und reichlich gutem Essen vom Pinocchio.</p>
+      </div>
+      <div class="article-hero-img">
+        <img src="Foto-9-scaled.jpg" alt="Doppelturnier 2024" />
+      </div>
+    </div>
+  </div>
+
+  <div class="article-body">
+
+    <div class="article-text">
+      <p>Die diesjährige Weihnachtsfeier am 14.12.2024, mit vorherigem Doppelturnier, fand erneut in der Sporthalle bzw. der angeschlossenen Cafeteria statt. Nach einigen krankheitsbedingten Absagen, welche ja nie ausbleiben, traten zum Doppelturnier eine tapfere Spielerin und 18 Spieler an. Insgesamt wurden 11 Runden Doppel gespielt. Manche hatten mehr Losglück, andere überhaupt keines.</p>
+      <p>Zu gewinnen gab es für die beiden Bestplatzierten zwei Gutscheine über jeweils 25 € gesponsert vom Pinocchio. Nach den 11 Runden konnten Jonas und Sergio jeweils acht Siege mit ihren unterschiedlich zugelosten Doppelpartnern verbuchen. Böse Zungen behaupten, die beiden hatten schlicht das größte Glück und bekamen laufend starke Doppelpartner zugelost <em>(Anm. d. Red. – wir wagen nicht zu widersprechen)</em>.</p>
+      <p>Obwohl es zwei identische Gutscheine zu gewinnen gab, musste ein Gewinner ausgespielt werden. Dieses als Einzel ausgetragene Finale konnte Sergio, sehr zum Verdruss der auf ein spannendes und packendes Spiel hoffenden Schaulustigen, recht deutlich für sich entscheiden.</p>
+    </div>
+
+    <!-- ERGEBNISSE -->
+    <div class="results-block fade-in">
+      <div class="results-header">🏆 Ergebnisse Doppelturnier</div>
+      <div class="results-row top">
+        <div class="results-rank gold">1.</div>
+        <div class="results-names">Jonas &amp; Sergio</div>
+        <div class="results-wins highlight">8 Siege</div>
+      </div>
+      <div class="results-row">
+        <div class="results-rank silver">2.</div>
+        <div class="results-names">Dirk · Jürgen · Thomas Kaiser</div>
+        <div class="results-wins">7 Siege</div>
+      </div>
+      <div class="results-row">
+        <div class="results-rank">3.</div>
+        <div class="results-names">Klaus · Jörn <span style="font-size:0.75rem;color:var(--muted);">(lag nur am Lospech)</span></div>
+        <div class="results-wins">6 Siege</div>
+      </div>
+      <div class="results-row">
+        <div class="results-rank">4.</div>
+        <div class="results-names">Juri · Markus · Sijon</div>
+        <div class="results-wins">5 Siege</div>
+      </div>
+      <div class="results-row">
+        <div class="results-rank">5.</div>
+        <div class="results-names">Franky · Marius · Ulli</div>
+        <div class="results-wins">4 Siege</div>
+      </div>
+      <div class="results-row">
+        <div class="results-rank">6.</div>
+        <div class="results-names">Steve · Thomy</div>
+        <div class="results-wins">3 Siege</div>
+      </div>
+      <div class="results-row">
+        <div class="results-rank">7.</div>
+        <div class="results-names">Konni · Yang · Xiaohong</div>
+        <div class="results-wins">2 Siege</div>
+      </div>
+      <div class="results-row">
+        <div class="results-rank">8.</div>
+        <div class="results-names">Matthias <span style="font-size:0.75rem;color:var(--muted);">(unheimliches Lospech)</span></div>
+        <div class="results-wins">0 Siege</div>
+      </div>
+    </div>
+
+    <!-- BILDER DOPPELTURNIER -->
+    <div class="gallery-section fade-in">
+      <div class="gallery-label">Fotos · Doppelturnier</div>
+      <div class="gallery-grid" id="galleryTurnier">
+        <div class="gallery-item tall" onclick="openLightbox('turnier',0)"><img src="Foto-1-1-scaled.jpg" alt="Doppelturnier" loading="lazy"/></div>
+        <div class="gallery-item tall" onclick="openLightbox('turnier',1)"><img src="Foto-2-1-scaled.jpg" alt="Doppelturnier" loading="lazy"/></div>
+        <div class="gallery-item" onclick="openLightbox('turnier',2)"><img src="Foto-3-scaled.jpg" alt="Doppelturnier" loading="lazy"/></div>
+        <div class="gallery-item" onclick="openLightbox('turnier',3)"><img src="Foto-4-scaled.jpg" alt="Doppelturnier" loading="lazy"/></div>
+        <div class="gallery-item tall" onclick="openLightbox('turnier',4)"><img src="Foto-5-scaled.jpg" alt="Doppelturnier" loading="lazy"/></div>
+        <div class="gallery-item" onclick="openLightbox('turnier',5)"><img src="Foto-6-scaled.jpg" alt="Doppelturnier" loading="lazy"/></div>
+        <div class="gallery-item" onclick="openLightbox('turnier',6)"><img src="Foto-7-scaled.jpg" alt="Doppelturnier" loading="lazy"/></div>
+        <div class="gallery-item tall" onclick="openLightbox('turnier',7)"><img src="Foto-8-scaled.jpg" alt="Doppelturnier" loading="lazy"/></div>
+        <div class="gallery-item" onclick="openLightbox('turnier',8)"><img src="Foto-9-scaled.jpg" alt="Doppelturnier" loading="lazy"/></div>
+      </div>
+    </div>
+
+    <div class="article-text">
+      <p>Schlussendlich stand aber der Spaß im Vordergrund <em>(Anm. d. Red. – Ausnahmen bestätigen die Regel)</em>.</p>
+      <p>Mit einem kleinen Sektempfang und der Siegerehrung startete dann die Weihnachtsfeier in der Cafeteria mit 28 Personen. Die kurze Pause bis zum Essen wurde zudem genutzt, um sich bei Jürgen (konkret Holzbau Albiez) nach zwei Jahren endlich offiziell für die gesponsorten Trikots zu bedanken <em>(Anm. d. Red. – wir schieben es mal auf den 1. und 2. Vorstand)</em>.</p>
+      <p>Das anschließend vom Pinocchio gelieferte Essen war nicht nur eine Augenweide, sondern auch überaus lecker und reichlich. Als Dessert gab es Nusszopf von Familie Marius und Schokokuchen von Thorsten <em>(Anm. d. Red. – letzterer ging leider an mir vorbei)</em>. Da Bilder bekanntlich mehr sagen als Worte, genug der Worte.</p>
+    </div>
+
+    <!-- BILDER WEIHNACHTSFEIER -->
+    <div class="gallery-section fade-in">
+      <div class="gallery-label">Fotos · Weihnachtsfeier &amp; Siegerehrung</div>
+      <div class="gallery-grid" id="galleryFeier">
+        <div class="gallery-item" onclick="openLightbox('feier',0)"><img src="Foto-10-scaled.jpg" alt="Weihnachtsfeier" loading="lazy"/></div>
+        <div class="gallery-item" onclick="openLightbox('feier',1)"><img src="Foto-11-scaled.jpg" alt="Weihnachtsfeier" loading="lazy"/></div>
+        <div class="gallery-item" onclick="openLightbox('feier',2)"><img src="Foto-12-scaled.jpg" alt="Weihnachtsfeier" loading="lazy"/></div>
+        <div class="gallery-item" onclick="openLightbox('feier',3)"><img src="Foto-13-scaled.jpg" alt="Essen" loading="lazy"/></div>
+        <div class="gallery-item tall" onclick="openLightbox('feier',4)"><img src="Foto-14-scaled.jpg" alt="Siegerehrung" loading="lazy"/></div>
+      </div>
+    </div>
+
+  </div><!-- /article-body -->
+
+  <footer>
+    <a class="footer-logo" href="index.html"><img src="logo.jpg" alt="Logo"/><div class="footer-logo-text"><span>TTC</span> Lauchringen</div></a>
+    <p class="footer-copy">© 2026 TTC Lauchringen · Tischtennis seit 1995</p>
+    <div class="footer-links">
+      <a href="training.html">Training</a>
+      <a href="mannschaften.html">Mannschaften</a>
+      <a href="kontakt.html">Kontakt</a>
+      <a href="chronik.html">Chronik</a>
+      <a href="impressum.html">Impressum</a>
+    </div>
+  </footer>
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+  <button class="lightbox-prev" onclick="lightboxNav(-1)">‹</button>
+  <img id="lightboxImg" src="" alt="" />
+  <button class="lightbox-next" onclick="lightboxNav(1)">›</button>
+</div>
+
+<script src="main.js"></script>
+<script>
+  const galleries = {
+    turnier: [
+      'Foto-1-1-scaled.jpg','Foto-2-1-scaled.jpg','Foto-3-scaled.jpg','Foto-4-scaled.jpg',
+      'Foto-5-scaled.jpg','Foto-6-scaled.jpg','Foto-7-scaled.jpg','Foto-8-scaled.jpg','Foto-9-scaled.jpg'
+    ],
+    feier: [
+      'Foto-10-scaled.jpg','Foto-11-scaled.jpg','Foto-12-scaled.jpg',
+      'Foto-13-scaled.jpg','Foto-14-scaled.jpg'
+    ]
+  };
+  let currentGallery = 'turnier', currentIndex = 0;
+
+  function openLightbox(gallery, index) {
+    currentGallery = gallery; currentIndex = index;
+    document.getElementById('lightboxImg').src = galleries[gallery][index];
+    document.getElementById('lightbox').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  function lightboxNav(dir) {
+    const imgs = galleries[currentGallery];
+    currentIndex = (currentIndex + dir + imgs.length) % imgs.length;
+    document.getElementById('lightboxImg').src = imgs[currentIndex];
+  }
+  document.getElementById('lightbox').addEventListener('click', function(e) {
+    if (e.target === this) closeLightbox();
+  });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowRight') lightboxNav(1);
+    if (e.key === 'ArrowLeft') lightboxNav(-1);
+  });
+</script>
+</body>
+</html>
