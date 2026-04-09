@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Impressum – TTC Lauchringen</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .impressum-section { padding: 5rem 4rem; background: var(--black); }
+    .imp-block { margin-bottom: 2.5rem; }
+    .imp-block h3 { font-weight: 500; font-size: 0.85rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.8rem; }
+    .imp-block p, .imp-block a { font-size: 0.92rem; color: rgba(240,236,228,0.75); line-height: 1.8; display: block; text-decoration: none; }
+    .imp-block a:hover { color: var(--text); }
+    .divider { height: 1px; background: var(--border); margin-bottom: 2.5rem; }
+  </style>
+</head>
+<body>
+<nav>
+  <a class="nav-logo" href="index.html">
+    <img src="logo.jpg" alt="TTC Lauchringen Logo" />
+    <div>
+      <div class="nav-logo-text"><span>TTC</span> Lauchringen</div>
+      <div class="nav-logo-sub">Seit 1995</div>
+    </div>
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="training.html">Training</a></li>
+    <li><a href="mannschaften.html">Mannschaften</a></li>
+    <li><a href="aktuelles.html">Aktuelles</a></li>
+    <li><a href="chronik.html">Chronik</a></li>
+    <li><a href="kontakt.html" class="nav-cta">Kontakt</a></li>
+  </ul>
+  <button class="burger" id="burger" aria-label="Menü"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="page">
+  <div class="impressum-section section">
+    <div class="section-eyebrow">Rechtliches</div>
+    <h1 class="section-title" style="font-size:2.8rem;margin-bottom:2.5rem;">IMPRESSUM</h1>
+
+    <div class="imp-block">
+      <h3>Verein</h3>
+      <p>TTC Lauchringen e.V.</p>
+      <p>Sporthalle Unterlauchringen</p>
+      <p>Hohrainstraße 57</p>
+      <p>79787 Lauchringen</p>
+    </div>
+    <div class="divider"></div>
+    <div class="imp-block">
+      <h3>Vorstand</h3>
+      <p>1. Vorstand: Maximilian Merz</p>
+      <a id="impEmail1" href="#">Lädt...</a>
+      <p style="margin-top:0.6rem;">2. Vorstand: Jonas Schroff</p>
+      <a id="impEmail2" href="#">Lädt...</a>
+    </div>
+    <div class="divider"></div>
+    <div class="imp-block">
+      <h3>Verantwortlich für den Inhalt</h3>
+      <p>Tim Wähler</p>
+      <a id="impEmail3" href="#">Lädt...</a>
+    </div>
+    <div class="divider"></div>
+    <div class="imp-block">
+      <h3>Haftungshinweis</h3>
+      <p>Trotz sorgfältiger inhaltlicher Kontrolle übernehmen wir keine Haftung für die Inhalte externer Links. Für den Inhalt der verlinkten Seiten sind ausschließlich deren Betreiber verantwortlich.</p>
+    </div>
+    <div class="divider"></div>
+    <div class="imp-block">
+      <h3>Copyright</h3>
+      <p>© 2008–2026 TTC Lauchringen. Alle Rechte vorbehalten.</p>
+    </div>
+  </div>
+
+  <footer>
+    <a class="footer-logo" href="index.html"><img src="logo.jpg" alt="Logo"/><div class="footer-logo-text"><span>TTC</span> Lauchringen</div></a>
+    <p class="footer-copy">© 2026 TTC Lauchringen · Tischtennis seit 1995</p>
+    <div class="footer-links">
+      <a href="training.html">Training</a>
+      <a href="mannschaften.html">Mannschaften</a>
+      <a href="kontakt.html">Kontakt</a>
+      <a href="chronik.html">Chronik</a>
+      <a href="impressum.html">Impressum</a>
+    </div>
+  </footer>
+</div>
+
+<script src="main.js"></script>
+<script>
+  var e1 = ['maximilian.merz', 'gmail.com'].join('@');
+  var e2 = ['schroffjonas', 'gmail.com'].join('@');
+  var e3 = ['waehlertim', 'gmail.com'].join('@');
+  var a1 = document.getElementById('impEmail1');
+  var a2 = document.getElementById('impEmail2');
+  var a3 = document.getElementById('impEmail3');
+  a1.textContent = e1; a1.href = 'mailto:' + e1;
+  a2.textContent = e2; a2.href = 'mailto:' + e2;
+  a3.textContent = e3; a3.href = 'mailto:' + e3;
+</script>
+</body>
+</html>
